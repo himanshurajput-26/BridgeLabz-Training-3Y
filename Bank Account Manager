@@ -1,0 +1,54 @@
+package com.bridgelabz.oops.leveltwo;
+
+public class BankAccount {
+    // Fields
+    private String accountNumber;
+    private double balance;
+
+    // Constructor
+    public BankAccount(String accountNumber, double balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+    // Method: Deposit money
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: Rs." + amount);
+        } else {
+            System.out.println("Deposit amount must be positive!");
+        }
+    }
+
+    // Method: Withdraw money (prevent overdraft)
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Withdrawal amount must be positive!");
+        } else if (amount > balance) {
+            System.out.println("Insufficient balance! Cannot withdraw Rs." + amount);
+        } else {
+            balance -= amount;
+            System.out.println("Withdrawn: Rs." + amount);
+        }
+    }
+
+    // Method: Check balance
+    public void checkBalance() {
+        System.out.println("Account Number: " + accountNumber + 
+                           " | Current Balance: Rs." + balance);
+    }
+
+    // Main method to test BankAccount
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount("ACC12345", 1000.0);
+
+        account.checkBalance();      // Initial balance
+        account.deposit(500.0);      // Add money
+        account.checkBalance();      
+        account.withdraw(200.0);     // Withdraw valid amount
+        account.checkBalance();      
+        account.withdraw(2000.0);    // Try overdraft (not allowed)
+        account.checkBalance();      
+    }
+}
