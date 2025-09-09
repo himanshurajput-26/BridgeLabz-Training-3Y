@@ -1,0 +1,35 @@
+public class SentenceFormatter {
+
+    // Method to format a paragraph
+    public static String formatText(String paragraph) {
+        // Trim extra spaces
+        paragraph = paragraph.trim().replaceAll("\\s+", " ");
+
+        // Ensure one space after punctuation (. ? !)
+        paragraph = paragraph.replaceAll("([.!?])", "$1 ");
+
+        // Capitalize first letter of each sentence
+        StringBuilder result = new StringBuilder();
+        boolean capitalize = true;
+
+        for (char c : paragraph.toCharArray()) {
+            if (capitalize && Character.isLetter(c)) {
+                result.append(Character.toUpperCase(c));
+                capitalize = false;
+            } else {
+                result.append(c);
+            }
+            if (c == '.' || c == '?' || c == '!') {
+                capitalize = true; // next letter should be capital
+            }
+        }
+        return result.toString().trim();
+    }
+
+    // Test the formatter
+    public static void main(String[] args) {
+        String text = "hello world.this is   java!do you like coding?yes i do.";
+        System.out.println("Original: " + text);
+        System.out.println("Formatted: " + formatText(text));
+    }
+}
