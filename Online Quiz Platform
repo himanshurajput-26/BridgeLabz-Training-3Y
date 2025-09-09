@@ -1,0 +1,49 @@
+import java.util.*;
+
+public class QuizResultProcessor {
+    
+    // Method to calculate score for a user
+    public static int calculateScore(String[] correct, String[] user) {
+        int score = 0;
+        for (int i = 0; i < correct.length; i++) {
+            if (user[i].equalsIgnoreCase(correct[i])) {
+                score++;
+            }
+        }
+        return score;
+    }
+
+    // Method to assign grade based on score
+    public static String getGrade(int score, int total) {
+        double percent = (score * 100.0) / total;
+        if (percent >= 80) return "A";
+        else if (percent >= 60) return "B";
+        else if (percent >= 40) return "C";
+        else return "D";
+    }
+
+    public static void main(String[] args) {
+        // Correct answers
+        String[] correctAnswers = {"A", "C", "B", "D", "A"};
+
+        // User answers
+        String[] user1 = {"A", "C", "B", "D", "A"};  // all correct
+        String[] user2 = {"A", "B", "B", "C", "A"};  // some wrong
+        String[] user3 = {"B", "B", "C", "D", "A"};  // mixed
+
+        // Store scores of multiple users
+        List<Integer> scores = new ArrayList<>();
+
+        // Process each user
+        String[][] users = {user1, user2, user3};
+        for (int i = 0; i < users.length; i++) {
+            int score = calculateScore(correctAnswers, users[i]);
+            scores.add(score);
+            System.out.println("User " + (i + 1) + " Score: " + score 
+                               + "/" + correctAnswers.length 
+                               + " Grade: " + getGrade(score, correctAnswers.length));
+        }
+
+        System.out.println("\nAll Scores: " + scores);
+    }
+}
